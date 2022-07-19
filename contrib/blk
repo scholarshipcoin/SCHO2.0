@@ -1,0 +1,50 @@
+#!/bin/bash
+
+usage="Usage: scho [ info | stake | latest | dust ] \n \n
+	info: Check basic info. \n
+	stake: Enables staking; Passes password without storing it in memory. \n
+	latest: Compares latest block with the ScholarshipNL hosted block explorer. \n
+	dust: Prunes dust from wallet. Dust is defined as less than .0001SCHO. Requires jq. \n"
+
+schoc='/usr/local/bin/scholarship-cli -datadir=/var/lib/.scholarship/'
+
+case $1 in
+
+info )
+	$schoc getwalletinfo | egrep "balance|staked_balance|txcount|unconfirmed_balance|immature_balance|total_balance";
+	$schoc getnetworkinfo | egrep "subversion|connections";
+	$schoc getinfo | egrep "blocks";
+	$schoc getblockchaininfo | egrep "best";
+	$schoc getstakinginfo | egrep "enabled|staking|netstakeweight|expectedtime";
+;;	
+
+stake )
+	echo 'enter Scholarship Password'
+	read -s SCHOPW
+	$schoc walletpassphrase $SCHOPW 99999999 true
+	SCHOPW=null
+;;
+
+latest )
+	latest=$($schoc  getblockcount) && \
+	    blacksight=$(curl -s https://node.scholarship.io/insight-api/block-index/$latest? |  cut -d '"' -f4) && \
+	    scholarship=$($schoc  getblockhash $latest) && \
+	    diff -sy --label Local <(echo $scholarship) --label Explorer <(echo $blacksight)
+;;
+
+dust )
+	IFS=$'\n';
+
+	 /usr/local/bin/scholarship-cli -datadir=/var/lib/.scholarship/ listtransactions "*" 99999 | jq -r '.[] | select(.category != "send") | select(.amount < .0001) | .txid' | uniq >txid.txt
+
+	while read line; do
+	        echo $line 
+	        /usr/local/bin/scholarship-cli -datadir=/var/lib/.scholarship/ removeprunedfunds $(echo $line)
+	done < "txid.txt"
+;;
+
+*)
+    echo -e $usage
+;;	
+
+esac

@@ -1,0 +1,33 @@
+# /etc/conf.d/scholarshipd: config file for /etc/init.d/scholarshipd
+
+# Config file location
+#BLACKMORED_CONFIGFILE="/etc/scholarship/scholarship.conf"
+
+# What directory to write pidfile to?  (created and owned by $BLACKMORED_USER)
+#BLACKMORED_PIDDIR="/var/run/scholarshipd"
+
+# What filename to give the pidfile
+#BLACKMORED_PIDFILE="${BLACKMORED_PIDDIR}/scholarshipd.pid"
+
+# Where to write scholarshipd data (be mindful that the blockchain is large)
+#BLACKMORED_DATADIR="/var/lib/scholarshipd"
+
+# User and group to own scholarshipd process
+#BLACKMORED_USER="scholarship"
+#BLACKMORED_GROUP="scholarship"
+
+# Path to scholarshipd executable
+#BLACKMORED_BIN="/usr/bin/scholarshipd"
+
+# Nice value to run scholarshipd under
+#BLACKMORED_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+#BLACKMORED_OPTS=""
+
+# The timeout in seconds OpenRC will wait for scholarshipd to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+BLACKMORED_SIGTERM_TIMEOUT=600
