@@ -101,8 +101,10 @@ using namespace std;
 const char * const BITCOIN_CONF_FILENAME = "scholarship.conf";
 const char * const BITCOIN_PID_FILENAME = "scholarshipd.pid";
 
+CCriticalSection cs_args;
 map<string, string> mapArgs;
 map<string, vector<string> > mapMultiArgs;
+// const map<string, vector<string> >& mapMultiArgs = _mapMultiArgs;
 bool fDebug = false;
 bool fPrintToConsole = false;
 bool fPrintToDebugLog = true;
@@ -239,9 +241,12 @@ bool LogAcceptCategory(const char* category)
         static boost::thread_specific_ptr<set<string> > ptrCategory;
         if (ptrCategory.get() == NULL)
         {
+            if (mapMultiArgs.count("-debug")) {
             const vector<string>& categories = mapMultiArgs["-debug"];
             ptrCategory.reset(new set<string>(categories.begin(), categories.end()));
             // thread_specific_ptr automatically deletes the set when the thread ends.
+            } else
+                ptrCategory.reset(new set<string>());
         }
         const set<string>& setCategories = *ptrCategory.get();
 
@@ -518,34 +523,71 @@ void ClearDatadirCache()
     pathCachedNetSpecific = boost::filesystem::path();
 }
 
-boost::filesystem::path GetConfigFile()
+boost::filesystem::path GetConfigFile(const std::string& confPath)
 {
-    boost::filesystem::path pathConfigFile(GetArg("-conf", BITCOIN_CONF_FILENAME));
+    boost::filesystem::path pathConfigFile(confPath);
     if (!pathConfigFile.is_complete())
         pathConfigFile = GetDataDir(false) / pathConfigFile;
 
     return pathConfigFile;
 }
 
-void ReadConfigFile(map<string, string>& mapSettingsRet,
-                    map<string, vector<string> >& mapMultiSettingsRet)
+void ReadConfigFile(const std::string& confPath)
 {
-    boost::filesystem::ifstream streamConfig(GetConfigFile());
-    if (!streamConfig.good())
-        return; // No bitcoin.conf file is OK
+    boost::filesystem::ifstream streamConfig(GetConfigFile(confPath));
+    if (!streamConfig.good()){
+        // Create empty .conf if it does not exist
+        FILE* configFile = fopen(GetConfigFile(confPath).string().c_str(), "a");
 
-    set<string> setOptions;
-    setOptions.insert("*");
+        if (configFile != NULL) {
+            std::string strHeader = "# Scholarship Coin config file\n"
+                          "rpcuser=username\n"
+                          "rpcpassword=password\n"
+                          "server=1\n"
+                          "listen=1\n"
+                          "daemon=1\n"
+                          "port=55348\n"
+                          "rpcport=54644\n"
+                          "rpcbind=127.0.0.1\n"
+                          "maxconnections=20\n"
+                          "fallbackfee=0.0001\n"
+                          "rpcallowip=127.0.0.1\n"
+                          "\n"
+                          "# STAKING:\n"
+                          "# change the value to '0' to disable staking\n"
+                          "\n"
+                          "staking=1\n"
+                          "\n"
+                          "\n"
+                          "# ADDNODES:\n"
+                          "addnode=seed1.scholarshipcoin.org\n"
+                          "addnode=seed2.scholarshipcoin.org\n"
+                          "addnode=seed3.scholarshipcoin.org\n"
+                          "addnode=seed4.scholarshipcoin.org\n"
+                          "addnode=seed5.scholarshipcoin.org\n"
+                          "addnode=seed6.scholarshipcoin.org\n"
+                          "\n";
+            fwrite(strHeader.c_str(), std::strlen(strHeader.c_str()), 1, configFile);
+            fclose(configFile);
+        }
+        return; // Nothing to read, so just return
+    }
 
-    for (boost::program_options::detail::config_file_iterator it(streamConfig, setOptions), end; it != end; ++it)
     {
-        // Don't overwrite existing settings so command line settings override bitcoin.conf
-        string strKey = string("-") + it->string_key;
-        string strValue = it->value[0];
-        InterpretNegativeSetting(strKey, strValue);
-        if (mapSettingsRet.count(strKey) == 0)
-            mapSettingsRet[strKey] = strValue;
-        mapMultiSettingsRet[strKey].push_back(strValue);
+        LOCK(cs_args);
+        set<string> setOptions;
+        setOptions.insert("*");
+
+        for (boost::program_options::detail::config_file_iterator it(streamConfig, setOptions), end; it != end; ++it)
+        {
+            // Don't overwrite existing settings so command line settings override bitcoin.conf
+            string strKey = string("-") + it->string_key;
+            string strValue = it->value[0];
+            InterpretNegativeSetting(strKey, strValue);
+            if (mapArgs.count(strKey) == 0)
+                mapArgs[strKey] = strValue;
+            mapMultiArgs[strKey].push_back(strValue);
+        }
     }
     // If datadir is changed in .conf file:
     ClearDatadirCache();
