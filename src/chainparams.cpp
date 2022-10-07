@@ -91,7 +91,7 @@ public:
         pchMessageStart[1] = 0x3d;
         pchMessageStart[2] = 0x80;
         pchMessageStart[3] = 0x00;
-        nDefaultPort = 55348;
+        nDefaultPort = 25348;
         nPruneAfterHeight = 100000;
 
 
@@ -187,7 +187,7 @@ public:
         pchMessageStart[1] = 0x56;
         pchMessageStart[2] = 0xb1;
         pchMessageStart[3] = 0x41;
-        nDefaultPort = 35353;
+        nDefaultPort = 35348;
 
         consensus.nMinimumChainWork = uint256S("0000000000000000000000000000000000000000000000000000000000100001");
 
@@ -268,7 +268,7 @@ public:
         pchMessageStart[1] = 0x80;
         pchMessageStart[2] = 0xb5;
         pchMessageStart[3] = 0x06;
-        nDefaultPort = 45454;
+        nDefaultPort = 45348;
         nPruneAfterHeight = 100000;
 
         genesis = CreateGenesisBlock(1655996180, 2963963, 0x1e0ffff0, 1, 0);
