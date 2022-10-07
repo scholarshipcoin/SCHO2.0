@@ -1,4 +1,4 @@
-package=fschoype
+package=freetype
 $(package)_version=2.7.1
 $(package)_download_path=https://download.savannah.gnu.org/releases/$(package)
 $(package)_file_name=$(package)-$($(package)_version).tar.bz2

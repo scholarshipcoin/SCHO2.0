@@ -7,7 +7,7 @@ qt_packages = zlib
 
 qrencode_packages = qrencode
 
-qt_linux_packages:=qt expat libxcb xcb_proto libXau xproto fschoype fontconfig libxkbcommon dbus libX11 xextproto libXext xtrans
+qt_linux_packages:=qt expat libxcb xcb_proto libXau xproto freetype fontconfig libxkbcommon dbus libX11 xextproto libXext xtrans
 qt_android_packages=qt
 
 qt_darwin_packages=qt

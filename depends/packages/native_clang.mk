@@ -1,6 +1,6 @@
 package=native_clang
 $(package)_version=10.0.1
-$(package)_download_path=http://192.168.0.127/files/
+$(package)_download_path=https://github.com/llvm/llvm-project/releases/download/llvmorg-$($(package)_version)
 ifneq (,$(findstring aarch64,$(BUILD)))
 $(package)_download_file=clang+llvm-$($(package)_version)-aarch64-linux-gnu.tar.xz
 $(package)_file_name=clang+llvm-$($(package)_version)-aarch64-linux-gnu.tar.xz
