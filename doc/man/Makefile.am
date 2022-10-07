@@ -1,6 +1,6 @@
 dist_man1_MANS=
 
-if BUILD_BITCOIND
+if BUILD_SCHOLARSHIPD
   dist_man1_MANS+=scholarshipd.1
 endif
 
