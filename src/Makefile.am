@@ -70,7 +70,7 @@ noinst_PROGRAMS =
 TESTS =
 BENCHMARKS =
 
-if BUILD_BITCOIND
+if BUILD_SCHOLARSHIPD
   bin_PROGRAMS += scholarshipd
 endif
 
