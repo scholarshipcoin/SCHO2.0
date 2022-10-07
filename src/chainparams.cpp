@@ -85,7 +85,7 @@ public:
         consensus.nCoinbaseMaturity = 50; 
         consensus.nStakeMinAge = 6 * 60 * 60;
 
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000100001");
+        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000015f777b9536eecfc50");
 
         pchMessageStart[0] = 0xb5;
         pchMessageStart[1] = 0x3d;
@@ -101,9 +101,12 @@ public:
         assert(consensus.hashGenesisBlock == uint256S("0x00000740c3ab3ef407b5667e039e3bb4d0f733a306e7b09b0bd28dd23948a5e3"));
         assert(genesis.hashMerkleRoot == uint256S("0xb93661ffa5d22907d8f59ebe3400498e35f0461c6dc6ab97d21e5a2492000cea"));
 
-        vSeeds.push_back(CDNSSeedData("seed.scholarshipcoin.org", "node.scholarshipcoin.org"));
-        vSeeds.push_back(CDNSSeedData("seed2.scholarshipcoin.org", "node2.scholarshipcoin.org"));
-        vSeeds.push_back(CDNSSeedData("explorer.scholarshipcoin.org", "pool.scholarshipcoin.org"));
+        vSeeds.push_back(CDNSSeedData("seed1", "seed1.scholarshipcoin.org", true));
+        vSeeds.push_back(CDNSSeedData("seed2", "seed2.scholarshipcoin.org", true));
+        vSeeds.push_back(CDNSSeedData("seed3", "seed3.scholarshipcoin.org", true));
+        vSeeds.push_back(CDNSSeedData("seed4", "seed4.scholarshipcoin.org", true));
+        vSeeds.push_back(CDNSSeedData("seed5", "seed5.scholarshipcoin.org", true));
+        vSeeds.push_back(CDNSSeedData("seed6", "seed6.scholarshipcoin.org", true));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,63); // S
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,28); // C
@@ -122,11 +125,23 @@ public:
 
         checkpointData = (CCheckpointData) {
                     boost::assign::map_list_of
-                    (0, uint256S("0x00000740c3ab3ef407b5667e039e3bb4d0f733a306e7b09b0bd28dd23948a5e3")),				
-                    1655995846, // * UNIX timestamp of last checkpoint block
-                    0,    // * total number of transactions between genesis and last checkpoint
+                    (0, uint256S("0x00000740c3ab3ef407b5667e039e3bb4d0f733a306e7b09b0bd28dd23948a5e3"))
+                    (1, uint256S("0x3ce4ef17a324ce8b24e3b733080b0c71f8eccbf24b63a7d1df3eb2b78974faf5"))
+                    (16, uint256S("0x668a7aeee9814c949fc379263d1dc412653b416a4699fbd9204d9869bbbf948d"))
+                    (21, uint256S("0xe98008a776ec9de334ae4da9961c230392a2e2811632fcd81e5a7a001d331c03"))
+                    (101, uint256S("0x7d82505f9cdf7f6197b11793d0ebb8b7949af30c8c8167de25bb4d1bbb993251"))
+                    (1638, uint256S("0xb595c681b369ba387fe4c92fc3619a7e99639fe669422814e5f845a9b0b93944"))
+                    (12862, uint256S("0x84ecafa4c987406c697fb38dac75b1596cf87d69c32e9ded16f6dbc9f4fd5bc5"))
+                    (15549, uint256S("0x848af067bca6dc915e1a740f2e4977dd3fce84fb38d49521e4798d96ec4dc530"))
+                    (21195, uint256S("0x56be899b8a845169d1784f3838d4dba71d746ff7b1f75455b7a76620d7c15405"))
+                    (25903, uint256S("0xa1b617439a941b81f1b227eab72a919cd01352d03fa9dfde16589cab6b61113a"))
+                    (64049, uint256S("0x0cc0c3e02a5c2a7a6ff62384e3fb49f776e54da3a1faa71f35595e8058981f79"))
+                    (66690, uint256S("0xcd38ed6fa4ec8182d626bb16f347e107e066f2bb10fc5145e7c351fa0ab34a72")),
+
+                    1665160832, // * UNIX timestamp of last checkpoint block
+                    108182,    // * total number of transactions between genesis and last checkpoint
                                 //   (the tx=... number in the SetBestChain debug.log lines)
-                    0      // * estimated number of transactions per day after checkpoint
+                    1.000000      // * estimated number of transactions per day after checkpoint
         };
    }
 };
