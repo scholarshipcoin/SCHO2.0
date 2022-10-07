@@ -492,16 +492,16 @@ std::string HelpMessage(HelpMessageMode mode)
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://gitlab.com/scholarship/scholarship>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/scholarshipcoin/SCHO2.0>";
     const std::string URL_WEBSITE = "<https://scholarshipcoin.org/>";
     // todo: remove urls from translations on next change
 
     // return FormatParagraph(strprintf(_("Copyright (C) %i-%i %s"), 2009, COPYRIGHT_YEAR, CopyrightHolders())) + "\n" +
     return FormatParagraph(strprintf("Copyright (C) %i-%i The Bitcoin Core Developers", 2009, COPYRIGHT_YEAR)) + "\n" +
            "\n" +
-           FormatParagraph(strprintf("Copyright (C) %i-%i The Scholarship Developers", 2014, 2018)) + "\n" +
+           FormatParagraph(strprintf("Copyright (C) %i-%i The Reet Developers", 2014, 2018)) + "\n" +
            "\n" +
-           FormatParagraph(strprintf("Copyright (C) %i-%i The Scholarship Core Developers", 2018, COPYRIGHT_YEAR)) + "\n" +
+           FormatParagraph(strprintf("Copyright (C) %i-%i The Scholarship Coin Developers", 2020, COPYRIGHT_YEAR)) + "\n" +
            "\n" +
            FormatParagraph(strprintf(_("Please contribute if you find Scholarship Core useful. "
                        "Visit %s for further information about the software."),

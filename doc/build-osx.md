@@ -29,7 +29,7 @@ Build Scholarship Core
 
 1. Clone the scholarship source code and cd into `scholarship`
 
-        git clone https://gitlab.com/scholarship/scholarship/
+        git clone https://github.com/scholarshipcoin/SCHO2.0/
         cd scholarship
 
 2.  Build scholarship:

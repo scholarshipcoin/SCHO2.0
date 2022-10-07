@@ -11,7 +11,7 @@
 
 [Unit]
 Description=Scholarship daemon
-Documentation=https://gitlab.com/scholarship/scholarship/blob/master/doc/init.md
+Documentation=https://github.com/scholarshipcoin/SCHO2.0/blob/master/doc/init.md
 
 # https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/
 After=network-online.target

@@ -72,7 +72,7 @@ If you want to build the windows installer with `make deploy` you need [NSIS](ht
 
 Acquire the source in the usual way:
 
-    https://gitlab.com/scholarship/scholarship.git
+    https://github.com/scholarshipcoin/SCHO2.0.git
     cd scholarship
 
 ## Building for 64-bit Windows

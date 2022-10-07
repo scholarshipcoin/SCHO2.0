@@ -29,7 +29,7 @@ Development Process
 -------------------
 
 The `master` branch is regularly built and tested, but is not guaranteed to be
-completely stable. [Tags](https://gitlab.com/scholarship/scholarship/tags) are created
+completely stable. [Tags](https://github.com/scholarshipcoin/SCHO2.0/tags) are created
 regularly to indicate new official, stable release versions of Scholarship Core.
 
 Change log can be found in [CHANGELOG.md](CHANGELOG.md).
