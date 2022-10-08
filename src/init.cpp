@@ -501,7 +501,7 @@ std::string LicenseInfo()
            "\n" +
            FormatParagraph(strprintf("Copyright (C) %i-%i The Reet Developers", 2014, 2018)) + "\n" +
            "\n" +
-           FormatParagraph(strprintf("Copyright (C) %i-%i The Scholarship Coin Developers", 2020, COPYRIGHT_YEAR)) + "\n" +
+           FormatParagraph(strprintf("Copyright (C) %i-%i The Scholarship Coin Developers + TylerAnderson T.A", 2020, COPYRIGHT_YEAR)) + "\n" +
            "\n" +
            FormatParagraph(strprintf(_("Please contribute if you find Scholarship Core useful. "
                        "Visit %s for further information about the software."),
