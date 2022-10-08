@@ -101,12 +101,12 @@ public:
         assert(consensus.hashGenesisBlock == uint256S("0x00000740c3ab3ef407b5667e039e3bb4d0f733a306e7b09b0bd28dd23948a5e3"));
         assert(genesis.hashMerkleRoot == uint256S("0xb93661ffa5d22907d8f59ebe3400498e35f0461c6dc6ab97d21e5a2492000cea"));
 
-        vSeeds.push_back(CDNSSeedData("seed1", "seed1.scholarshipcoin.org", true));
-        vSeeds.push_back(CDNSSeedData("seed2", "seed2.scholarshipcoin.org", true));
-        vSeeds.push_back(CDNSSeedData("seed3", "seed3.scholarshipcoin.org", true));
-        vSeeds.push_back(CDNSSeedData("seed4", "seed4.scholarshipcoin.org", true));
-        vSeeds.push_back(CDNSSeedData("seed5", "seed5.scholarshipcoin.org", true));
-        vSeeds.push_back(CDNSSeedData("seed6", "seed6.scholarshipcoin.org", true));
+        vSeeds.emplace_back("seed1.scholarshipcoin.org", true);
+        vSeeds.emplace_back("seed2.scholarshipcoin.org", true);
+        vSeeds.emplace_back("seed3.scholarshipcoin.org", true);
+        vSeeds.emplace_back("seed4.scholarshipcoin.org", true);
+        vSeeds.emplace_back("seed5.scholarshipcoin.org", true);
+        vSeeds.emplace_back("seed6.scholarshipcoin.org", true);
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,63); // S
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,28); // C

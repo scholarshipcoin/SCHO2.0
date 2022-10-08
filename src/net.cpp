@@ -1532,6 +1532,8 @@ void ThreadDNSAddressSeed()
             std::vector<CNetAddr> vIPs;
             std::vector<CAddress> vAdd;
             ServiceFlags requiredServiceBits = nRelevantServices;
+            std::string host = GetDNSHost(seed, &requiredServiceBits);
+            CNetAddr resolveSource;
             if (LookupHost(GetDNSHost(seed, &requiredServiceBits).c_str(), vIPs, 0, true))
             {
                 BOOST_FOREACH(const CNetAddr& ip, vIPs)
@@ -1542,7 +1544,9 @@ void ThreadDNSAddressSeed()
                     vAdd.push_back(addr);
                     found++;
                 }
+                addrman.Add(vAdd, resolveSource);
             }
+/**
             // TODO: The seed name resolve may fail, yielding an IP of [::], which results in
             // addrman assigning the same source to results from different seeds.
             // This should switch to a hard-coded stable dummy IP for each seed name, so that the
@@ -1552,6 +1556,7 @@ void ThreadDNSAddressSeed()
                 Lookup(seed.name.c_str(), seedSource, 0, true);
                 addrman.Add(vAdd, seedSource);
             }
+*/
         }
     }
 
@@ -1640,7 +1645,7 @@ void ThreadOpenConnections()
         boost::this_thread::interruption_point();
 
         // Add seed nodes if DNS seeds are all down (an infrastructure attack?).
-        if (addrman.size() == 0 && (GetTime() - nStart > 2)) {
+        if (addrman.size() == 0 && (GetTime() - nStart > 10)) {
             static bool done = false;
             if (!done) {
                 LogPrintf("Adding fixed seed nodes as DNS doesn't seem to be available.\n");
