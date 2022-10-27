@@ -86,7 +86,7 @@ public:
         consensus.nCoinbaseMaturity = 50; 
         consensus.nStakeMinAge = 6 * 60 * 60;
 
-        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000015f777b9536eecfc50");
+        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000001abb0b81780eee2090");
 
         pchMessageStart[0] = 0xb5;
         pchMessageStart[1] = 0x3d;
@@ -137,12 +137,15 @@ public:
                     (21195, uint256S("0x56be899b8a845169d1784f3838d4dba71d746ff7b1f75455b7a76620d7c15405"))
                     (25903, uint256S("0xa1b617439a941b81f1b227eab72a919cd01352d03fa9dfde16589cab6b61113a"))
                     (64049, uint256S("0x0cc0c3e02a5c2a7a6ff62384e3fb49f776e54da3a1faa71f35595e8058981f79"))
-                    (66690, uint256S("0xcd38ed6fa4ec8182d626bb16f347e107e066f2bb10fc5145e7c351fa0ab34a72")),
+                    (66690, uint256S("0xcd38ed6fa4ec8182d626bb16f347e107e066f2bb10fc5145e7c351fa0ab34a72"))
+                    (69472, uint256S("0x5d40934f233d1117511721141cf66f14cfaf1caa2aa2a1a4d30430e052030505"))
+                    (73076, uint256S("0xd8ce50c98a0e02c72e70d75d82754f99cd4ad08215cd212c2da46899391e3a4e"))
+                    (80637, uint256S("0xd4d648c85fab692f43b6f33aedfb84db59f6d861b65bf32297b9c83987d761c4")),
 
-                    1665160832, // * UNIX timestamp of last checkpoint block
-                    108182,    // * total number of transactions between genesis and last checkpoint
+                    1666889488, // * UNIX timestamp of last checkpoint block
+                    135346,    // * total number of transactions between genesis and last checkpoint
                                 //   (the tx=... number in the SetBestChain debug.log lines)
-                    1.000000      // * estimated number of transactions per day after checkpoint
+                    0.999999  // * estimated number of transactions per day after checkpoint
         };
    }
 };
@@ -237,6 +240,7 @@ class CRegTestParams : public CChainParams {
 public:
     CRegTestParams() {
         strNetworkID = "regtest";
+        consensus.nSubsidyHalvingInterval = 160000;
         consensus.nMaxReorganizationDepth = 50;
         consensus.nMajorityEnforceBlockUpgrade = 51;
         consensus.nMajorityRejectBlockOutdated = 75;
