@@ -7,7 +7,7 @@
 // Copyright (c) 2016-2019 The Qtum developers
 // Copyright (c) 2017-2019 The Navcoin developers
 
-#include "main.h"
+#include "validation.h"
 
 #include "addrman.h"
 #include "arith_uint256.h"
