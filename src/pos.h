@@ -13,7 +13,7 @@
 #include <primitives/transaction.h>
 #include <consensus/validation.h>
 #include <txdb.h>
-#include <main.h>
+#include <validation.h>
 #include <arith_uint256.h>
 #include <hash.h>
 #include <timedata.h>

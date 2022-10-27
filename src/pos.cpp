@@ -13,7 +13,7 @@
 #include "clientversion.h"
 #include "coins.h"
 #include "hash.h"
-#include "main.h"
+#include "validation.h"
 #include "uint256.h"
 #include "primitives/transaction.h"
 #include <stdio.h>

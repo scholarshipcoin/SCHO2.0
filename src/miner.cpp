@@ -14,7 +14,7 @@
 #include "consensus/validation.h"
 #include "crypto/scrypt.h"
 #include "hash.h"
-#include "main.h"
+#include "validation.h"
 #include "net.h"
 #include "policy/policy.h"
 #include "pos.h"

@@ -6,7 +6,7 @@
 
 #include <chainparams.h>
 #include <keystore.h>
-#include <main.h>
+#include <validation.h>
 #include <net.h>
 #include <pow.h>
 #include <script/sign.h>
@@ -21,7 +21,7 @@
 #include <boost/date_time/posix_time/posix_time_types.hpp>
 #include <boost/test/unit_test.hpp>
 
-// Tests this internal-to-main.cpp method:
+// Tests this internal-to-validation.cpp method:
 extern bool AddOrphanTx(const CTransaction& tx, NodeId peer);
 extern void EraseOrphansFor(NodeId peer);
 extern unsigned int LimitOrphanTxSize(unsigned int nMaxOrphans);

@@ -33,7 +33,7 @@ qt_test_test_scholarship_qt_SOURCES = \
   qt/test/compattests.cpp \
   qt/test/guiutiltests.cpp \
   qt/test/rpcnestedtests.cpp \
-  qt/test/test_main.cpp \
+  qt/test/test_validation.cpp \
   qt/test/uritests.cpp \
   $(TEST_QT_H)
 if ENABLE_WALLET
