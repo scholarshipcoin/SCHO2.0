@@ -1777,23 +1777,68 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex, const Consensus
     return true;
 }
 
-CAmount GetProofOfWorkSubsidy()
+CAmount GetProofOfWorkSubsidy(int nBlockHeight, const Consensus::Params& consensusParams)
 {
-    int nBlockHeight = chainActive.Height() + 1;
-    if (nBlockHeight == 1) { return 12000000 * COIN;
-    }
-    if (nBlockHeight <= 1200000) { return 25 * COIN;
-    }
+
+    int halvings = nBlockHeight / consensusParams.nSubsidyHalvingInterval;
+    if (halvings >= 64)
+        return 0;
+
+	CAmount nSubsidy;
+
+	if (nBlockHeight == 1) {
+	  nSubsidy = 12000000 * COIN;
+    	}
+	else if (nBlockHeight == 5120001) {
+	  nSubsidy = 25 * COIN;
+    	}
+	else {
+	  nSubsidy = 25 * COIN;
+    	}
+
+    nSubsidy >>= halvings;
+    return nSubsidy;
 }
 
 CAmount GetProofOfStakeSubsidy()
 {
     int nBlockHeight = chainActive.Height() + 1;
-    if (nBlockHeight <= 1000) { return 0 * COIN;
-    }
-    if (nBlockHeight <= 600000) { return 25 * COIN;
-    }
-    return 25 * COIN;
+    if (nBlockHeight <= 1000) { return 0 * COIN; }
+    else if (nBlockHeight <= 160000) { return 25 * COIN; }
+    else if (nBlockHeight <= 320000) { return 12.5 * COIN; }
+    else if (nBlockHeight <= 480000) { return 6.25 * COIN; }
+    else if (nBlockHeight <= 640000) { return 3.125 * COIN; }
+    else if (nBlockHeight <= 800000) { return 1.5625 * COIN; }
+    else if (nBlockHeight <= 960000) { return 0.78125 * COIN; }
+    else if (nBlockHeight <= 1120000) { return 0.390625 * COIN; }
+    else if (nBlockHeight <= 1280000) { return 0.1953125 * COIN; }
+    else if (nBlockHeight <= 1440000) { return 0.09765625 * COIN; }
+    else if (nBlockHeight <= 1600000) { return 0.04882813 * COIN; }
+    else if (nBlockHeight <= 1760000) { return 0.02441406 * COIN; }
+    else if (nBlockHeight <= 1920000) { return 0.01220703 * COIN; }
+    else if (nBlockHeight <= 2080000) { return 0.00610352 * COIN; }
+    else if (nBlockHeight <= 2240000) { return 0.00305176 * COIN; }
+    else if (nBlockHeight <= 2400000) { return 0.00152588 * COIN; }
+    else if (nBlockHeight <= 2560000) { return 0.00076294 * COIN; }
+    else if (nBlockHeight <= 2720000) { return 0.00038147 * COIN; }
+    else if (nBlockHeight <= 2880000) { return 0.00019073 * COIN; }
+    else if (nBlockHeight <= 3040000) { return 0.00009537 * COIN; }
+    else if (nBlockHeight <= 3200000) { return 0.00004768 * COIN; }
+    else if (nBlockHeight <= 3360000) { return 0.00002384 * COIN; }
+    else if (nBlockHeight <= 3520000) { return 0.00001192 * COIN; }
+    else if (nBlockHeight <= 3680000) { return 0.00000596 * COIN; }
+    else if (nBlockHeight <= 3840000) { return 0.00000298 * COIN; }
+    else if (nBlockHeight <= 4000000) { return 0.00000149 * COIN; }
+    else if (nBlockHeight <= 4160000) { return 0.00000075 * COIN; }
+    else if (nBlockHeight <= 4320000) { return 0.00000037 * COIN; }
+    else if (nBlockHeight <= 4480000) { return 0.00000019 * COIN; }
+    else if (nBlockHeight <= 4640000) { return 0.00000009 * COIN; }
+    else if (nBlockHeight <= 4800000) { return 0.00000005 * COIN; }
+    else if (nBlockHeight <= 4960000) { return 0.00000002 * COIN; }
+    else if (nBlockHeight <= 5120000) { return 0.00000001 * COIN; }
+    else if (nBlockHeight == 5120001) { return 25 * COIN; }
+    else if (nBlockHeight >= 5120002) { return 0 * COIN; }
+    else return 25 * COIN;
 }
 
 
@@ -2620,7 +2665,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     LogPrint("bench", "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime3 - nTime2), 0.001 * (nTime3 - nTime2) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime3 - nTime2) / (nInputs-1), nTimeConnect * 0.000001);
 
     if (block.IsProofOfWork()) {
-            CAmount blockReward = nFees + GetProofOfWorkSubsidy();
+CAmount blockReward = nFees + GetProofOfWorkSubsidy(pindex->nHeight, chainparams.GetConsensus());
             if (block.vtx[0].GetValueOut() > blockReward)
                 return state.DoS(100,
                                  error("ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)",

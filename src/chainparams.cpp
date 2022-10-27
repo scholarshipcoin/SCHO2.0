@@ -56,6 +56,7 @@ class CMainParams : public CChainParams {
 public:
     CMainParams() {
         strNetworkID = "main";
+        consensus.nSubsidyHalvingInterval = 160000;
         consensus.nMaxReorganizationDepth = 500;
         consensus.nMajorityEnforceBlockUpgrade = 750;
         consensus.nMajorityRejectBlockOutdated = 950;
@@ -80,7 +81,7 @@ public:
         consensus.nProtocolV1RetargetingFixedTime = 1655995846;
         consensus.nProtocolV2Time = 1655995847;
         consensus.nProtocolV3Time = 1655995848;
-        consensus.nLastPOWBlock = 1200000;
+        consensus.nLastPOWBlock = 999999999;
         consensus.nStakeTimestampMask = 0xf;
         consensus.nCoinbaseMaturity = 50; 
         consensus.nStakeMinAge = 6 * 60 * 60;
@@ -154,6 +155,7 @@ class CTestNetParams : public CChainParams {
 public:
     CTestNetParams() {
         strNetworkID = "test";
+        consensus.nSubsidyHalvingInterval = 160000;
         consensus.nMaxReorganizationDepth = 500;
         consensus.nMajorityEnforceBlockUpgrade = 750;
         consensus.nMajorityRejectBlockOutdated = 950;
